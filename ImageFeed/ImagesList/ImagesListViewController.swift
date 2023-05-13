@@ -11,8 +11,7 @@ class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
-    
+    private let photosName: [String] = Array(0..<20).map { "\($0)" }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +56,6 @@ extension ImagesListViewController: UITableViewDataSource {
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
     }
-    
 }
 
 extension ImagesListViewController: UITableViewDelegate {
