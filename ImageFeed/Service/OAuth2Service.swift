@@ -23,14 +23,13 @@ final class OAuth2Service {
             return OAuth2TokenStorage().token
         }
         set {
-            OAuth2TokenStorage().token = newValue!
+            OAuth2TokenStorage().token = newValue
         }
     }
     
     func fetchOAuthToken(_ code: String, completion: @escaping ((Swift.Result<String, Error>) -> Void)) {
         let request = authTokenRequest(code: code)
-            let task = object(for: request) { [weak self] result in
-                DispatchQueue.main.async {
+        let task = object(for: request) { [weak self] result in
                 guard let self = self else { return }
                     switch result {
                     case .success(let body):
@@ -39,7 +38,6 @@ final class OAuth2Service {
                         completion(.success(authToken))
                     case .failure(let error):
                         completion(.failure(error))
-                    }
             }
         }
         task.resume()
@@ -48,9 +46,9 @@ final class OAuth2Service {
     private func authTokenRequest(code: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
             path: "/oauth/token"
-            + "?client_id=\(accessKey))"
-            + "&&client_secret=\(secretKey)"
-            + "&&redirect_uri=\(redirectURI)"
+            + "?client_id=\(AccessKey))"
+            + "&&client_secret=\(SecretKey)"
+            + "&&redirect_uri=\(RedirectURI)"
             + "&&code=\(code)"
             + "&&grant_type=authorization_code",
             httpMethod: "POST",
