@@ -182,13 +182,16 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Tes-Iu-Tuu">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" automaticallyAdjustsScrollViewInsets="NO" id="u60-Ck-RYN" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="u60-Ck-RYN" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="iot-ZP-bHs">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.0" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.0" colorSpace="calibratedRGB"/>
                         <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="lDY-Ro-In1" kind="relationship" relationship="viewControllers" id="NJH-gq-1Uh"/>
@@ -234,7 +237,7 @@
         <!--Unsplash-->
         <scene sceneID="Ljr-4I-f2v">
             <objects>
-                <viewController id="mWf-nU-N6B" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SplashViewController" id="mWf-nU-N6B" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D4I-fO-0Vq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -255,7 +258,6 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Unsplash" id="jji-c7-q3M"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="Ug4-m7-RUN" kind="presentation" identifier="ShowAuthenticationScreen" modalPresentationStyle="fullScreen" id="McC-vx-70w"/>
                     </connections>

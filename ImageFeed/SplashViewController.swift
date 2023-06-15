@@ -5,7 +5,6 @@
 //  Created by Артём Костянко on 7.06.23.
 //
 
-import Foundation
 import UIKit
 
 final class SplashViewController: UIViewController {
@@ -17,7 +16,7 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let token = OAuth2TokenStorage().token {
+        if let token = oauth2TokenStorage.token {
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)

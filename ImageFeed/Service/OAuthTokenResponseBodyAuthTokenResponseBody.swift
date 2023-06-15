@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OAuthTokenResponseBody: Decodable {
+struct OAuthTokenResponseBody: Codable {
     let accessToken: String
     let tokenType: String
     let scope: String
@@ -19,10 +19,4 @@ struct OAuthTokenResponseBody: Decodable {
         case scope
         case createdAt = "created_at"
     }
-}
-
-enum NetworkError: Error {
-    case httpStatusCode(Int)
-    case urlRequestError(Error)
-    case urlSessionError
 }
