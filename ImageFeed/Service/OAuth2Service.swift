@@ -27,7 +27,7 @@ final class OAuth2Service {
         }
     }
     
-    func fetchOAuthToken(_ code: String, completion: @escaping ((Swift.Result<String, Error>) -> Void)) {
+    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         let request = authTokenRequest(code: code)
         let task = object(for: request) { [weak self] result in
             guard let self = self else { return }
@@ -43,11 +43,12 @@ final class OAuth2Service {
         task.resume()
     }
 }
+
 extension OAuth2Service {
     private func authTokenRequest(code: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
             path: "/oauth/token"
-            + "?client_id=\(AccessKey))"
+            + "?client_id=\(AccessKey)"
             + "&&client_secret=\(SecretKey)"
             + "&&redirect_uri=\(RedirectURI)"
             + "&&code=\(code)"

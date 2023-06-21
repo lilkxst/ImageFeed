@@ -221,7 +221,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SDQ-xP-3cZ">
             <objects>
-                <navigationController id="Ug4-m7-RUN" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ug4-m7-RUN" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bhf-hB-ooD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
