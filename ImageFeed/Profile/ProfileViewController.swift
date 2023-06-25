@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
         logautButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         logautButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
-    }
+    } 
     
     @objc
     
