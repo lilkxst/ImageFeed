@@ -23,6 +23,7 @@
 		69D2767029FA7E5E004565A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69D2766F29FA7E5E004565A1 /* Assets.xcassets */; };
 		69D2767329FA7E5E004565A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D2767129FA7E5E004565A1 /* LaunchScreen.storyboard */; };
 		69E8AA1A2A48F02000065823 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 69E8AA192A48F02000065823 /* ProgressHUD */; };
+		69E8AA1C2A4B9B6500065823 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E8AA1B2A4B9B6500065823 /* UIBlockingProgressHUD.swift */; };
 		69FAC81E2A27F9DD00DC0B52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FAC81D2A27F9DD00DC0B52 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		69D2766F29FA7E5E004565A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69D2767229FA7E5E004565A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69D2767429FA7E5E004565A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69E8AA1B2A4B9B6500065823 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		69FAC81D2A27F9DD00DC0B52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				69D2766629FA7E5D004565A1 /* AppDelegate.swift */,
 				69D2766829FA7E5D004565A1 /* SceneDelegate.swift */,
 				69FAC81D2A27F9DD00DC0B52 /* Constants.swift */,
+				69E8AA1B2A4B9B6500065823 /* UIBlockingProgressHUD.swift */,
 				69B2AFF42A30C2CA002467A9 /* SplashViewController.swift */,
 				69B2AFED2A2FF071002467A9 /* Service */,
 				69C8B6482A2B5586007054A7 /* Auth */,
@@ -229,6 +232,7 @@
 				69C8B64C2A2B5C74007054A7 /* WebViewViewController.swift in Sources */,
 				697B46DA2A353E9E0097B8EA /* OAuth2TokenStorage.swift in Sources */,
 				69B9413D2A04581700E899DE /* ImagesListCell.swift in Sources */,
+				69E8AA1C2A4B9B6500065823 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
