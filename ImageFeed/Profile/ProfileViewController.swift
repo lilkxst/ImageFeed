@@ -9,10 +9,17 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var nameLabel: UILabel!
+    private var linkLabel: UILabel!
+    private var descriptionLabel: UILabel!
+    private let profileService = ProfileService.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createProfileView()
+        updateProfileDetails(profile: profileService.profile!)
+    
     }
     
     func createProfileView() {
@@ -25,7 +32,7 @@ class ProfileViewController: UIViewController {
         profileImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         
-        let nameLabel = UILabel()
+        nameLabel = UILabel()
         nameLabel.text = "Екатерина Новикова"
         nameLabel.textColor = .white
         nameLabel.font = nameLabel.font.withSize(23)
@@ -34,7 +41,7 @@ class ProfileViewController: UIViewController {
         nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
         
-        let linkLabel = UILabel()
+        linkLabel = UILabel()
         linkLabel.text = "@ekaterina_nov"
         linkLabel.textColor = .gray
         linkLabel.font = linkLabel.font.withSize(13)
@@ -43,7 +50,7 @@ class ProfileViewController: UIViewController {
         linkLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         linkLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
         
-        let descriptionLabel = UILabel()
+        descriptionLabel = UILabel()
         descriptionLabel.text = "Hello, world!"
         descriptionLabel.textColor = .white
         descriptionLabel.font = descriptionLabel.font.withSize(13)
@@ -61,7 +68,13 @@ class ProfileViewController: UIViewController {
         logautButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         logautButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
-    } 
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        nameLabel.text = profile.name ?? ""
+        linkLabel.text = profile.loginName ?? ""
+        descriptionLabel.text = profile.bio ?? ""
+    }
     
     @objc
     

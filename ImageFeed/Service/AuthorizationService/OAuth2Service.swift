@@ -93,9 +93,15 @@ extension OAuth2Service {
 }
     
     extension URLRequest {
-        static func makeHTTPRequest(path: String, httpMethod: String, baseURL: URL = DefaultBaseURL) -> URLRequest {
+        static func makeHTTPRequest(path: String, httpMethod: String, baseURL: URL = DefaultBaseURL, tokenIsNeeded: Bool = false) -> URLRequest {
             var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
             request.httpMethod = httpMethod
+            if (tokenIsNeeded) {
+                guard let authToken = OAuth2TokenStorage().token else {
+                    return request
+                }
+                request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+            }
             return request
         }
     }

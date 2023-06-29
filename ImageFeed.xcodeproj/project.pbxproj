@@ -24,6 +24,9 @@
 		69D2767329FA7E5E004565A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D2767129FA7E5E004565A1 /* LaunchScreen.storyboard */; };
 		69E8AA1A2A48F02000065823 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 69E8AA192A48F02000065823 /* ProgressHUD */; };
 		69E8AA1C2A4B9B6500065823 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E8AA1B2A4B9B6500065823 /* UIBlockingProgressHUD.swift */; };
+		69E8AA202A4B9EE000065823 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E8AA1F2A4B9EE000065823 /* ProfileService.swift */; };
+		69E8AA222A4BA04200065823 /* ProfileResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E8AA212A4BA04200065823 /* ProfileResult.swift */; };
+		69E8AA242A4BA15300065823 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E8AA232A4BA15300065823 /* Profile.swift */; };
 		69FAC81E2A27F9DD00DC0B52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FAC81D2A27F9DD00DC0B52 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +49,9 @@
 		69D2767229FA7E5E004565A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69D2767429FA7E5E004565A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E8AA1B2A4B9B6500065823 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		69E8AA1F2A4B9EE000065823 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		69E8AA212A4BA04200065823 /* ProfileResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResult.swift; sourceTree = "<group>"; };
+		69E8AA232A4BA15300065823 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		69FAC81D2A27F9DD00DC0B52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,9 +78,8 @@
 		69B2AFED2A2FF071002467A9 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				69B2AFE92A2FE997002467A9 /* OAuthTokenResponseBodyAuthTokenResponseBody.swift */,
-				69B2AFEB2A2FEA6C002467A9 /* OAuth2Service.swift */,
-				697B46D92A353E9E0097B8EA /* OAuth2TokenStorage.swift */,
+				69E8AA1E2A4B9EB100065823 /* ProfileService */,
+				69E8AA1D2A4B9E9400065823 /* AuthorizationService */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -140,6 +145,26 @@
 				69D2767429FA7E5E004565A1 /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		69E8AA1D2A4B9E9400065823 /* AuthorizationService */ = {
+			isa = PBXGroup;
+			children = (
+				697B46D92A353E9E0097B8EA /* OAuth2TokenStorage.swift */,
+				69B2AFEB2A2FEA6C002467A9 /* OAuth2Service.swift */,
+				69B2AFE92A2FE997002467A9 /* OAuthTokenResponseBodyAuthTokenResponseBody.swift */,
+			);
+			path = AuthorizationService;
+			sourceTree = "<group>";
+		};
+		69E8AA1E2A4B9EB100065823 /* ProfileService */ = {
+			isa = PBXGroup;
+			children = (
+				69E8AA1F2A4B9EE000065823 /* ProfileService.swift */,
+				69E8AA212A4BA04200065823 /* ProfileResult.swift */,
+				69E8AA232A4BA15300065823 /* Profile.swift */,
+			);
+			path = ProfileService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E8AA242A4BA15300065823 /* Profile.swift in Sources */,
 				69D2766B29FA7E5D004565A1 /* ImagesListViewController.swift in Sources */,
 				69B2AFEA2A2FE997002467A9 /* OAuthTokenResponseBodyAuthTokenResponseBody.swift in Sources */,
 				69D2766729FA7E5D004565A1 /* AppDelegate.swift in Sources */,
@@ -233,6 +259,8 @@
 				697B46DA2A353E9E0097B8EA /* OAuth2TokenStorage.swift in Sources */,
 				69B9413D2A04581700E899DE /* ImagesListCell.swift in Sources */,
 				69E8AA1C2A4B9B6500065823 /* UIBlockingProgressHUD.swift in Sources */,
+				69E8AA222A4BA04200065823 /* ProfileResult.swift in Sources */,
+				69E8AA202A4B9EE000065823 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
