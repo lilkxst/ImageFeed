@@ -37,6 +37,8 @@ class ProfileViewController: UIViewController {
         let profileImage = UIImage(named: "ProfileImagePlaceholder")
         let profileImageView = UIImageView(image: profileImage)
         profileImageView.tag = 1
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        profileImageView.clipsToBounds = true
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImageView)
         profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
