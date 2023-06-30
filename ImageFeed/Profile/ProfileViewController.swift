@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
@@ -33,8 +34,9 @@ class ProfileViewController: UIViewController {
     }
     
     func createProfileView() {
-        let profileImage = UIImage(named: "ProfileImage")
+        let profileImage = UIImage(named: "ProfileImagePlaceholder")
         let profileImageView = UIImageView(image: profileImage)
+        profileImageView.tag = 1
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImageView)
         profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
@@ -89,8 +91,20 @@ class ProfileViewController: UIViewController {
     private func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
+            let url = URL(string: profileImageURL),
+            let imageView = view.viewWithTag(1) as? UIImageView
         else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: imageView.frame.width / 2)
+        let placeholderImage = UIImage(named: "ProfileImagePlaceholder")
+        imageView.kf.setImage(with: url, placeholder: placeholderImage, options: [.processor(processor)], completionHandler: { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(_):
+                print("Фото загружено")
+            case .failure(let error):
+                print("Фото не загружено: \(error)")
+            }
+        })
     }
     
     @objc
