@@ -14,12 +14,13 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service()
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token = oauth2TokenStorage.token {
-            switchToTabBarController()
+            self.fetchProfile(token)
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -30,6 +31,14 @@ final class SplashViewController: UIViewController {
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
+    }
+    
+    private func showAlert() {
+        UIBlockingProgressHUD.dismiss()
+        let alert = UIAlertController(title: "Что-то пошло не так(", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let alertButton = UIAlertAction(title: "Ок", style: .default)
+        alert.addAction(alertButton)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -60,9 +69,8 @@ extension SplashViewController: AuthViewControllerDelegate {
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
-                self.switchToTabBarController()
-                UIBlockingProgressHUD.dismiss()
+            case .success(let token):
+                self.fetchProfile(token)
             case .failure:
                 UIBlockingProgressHUD.dismiss()
             }
@@ -76,11 +84,18 @@ extension SplashViewController {
             guard let self = self else { return }
             switch result {
             case .success:
+                self.profileImageService.fetchProfileImageURL(username: self.profileService.profile!.username) { imageResult in
+                    switch imageResult {
+                    case .success:
+                        print("Ссылка передана")
+                    case .failure:
+                        print("Ошибка передачи")
+                    }
+                }
                 UIBlockingProgressHUD.dismiss()
                 self.switchToTabBarController()
             case .failure:
-                UIBlockingProgressHUD.dismiss()
-                break
+                self.showAlert()
             }
         }
     }
