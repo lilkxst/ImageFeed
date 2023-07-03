@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController {
     }
     
     func createProfileView() {
+        view.backgroundColor = UIColor(named: "YP Black")
         let profileImage = UIImage(named: "ProfileImagePlaceholder")
         let profileImageView = UIImageView(image: profileImage)
         profileImageView.tag = 1

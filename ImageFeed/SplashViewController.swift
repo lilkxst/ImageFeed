@@ -16,6 +16,12 @@ final class SplashViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        createSplashController()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -26,11 +32,33 @@ final class SplashViewController: UIViewController {
         }
     }
     
+    private func createSplashController() {
+        view.backgroundColor = UIColor(named: "YP Black")
+        let screenLogoImage = UIImage(named: "ImageLaunchScreen")
+        let screenLogoImageView = UIImageView(image: screenLogoImage)
+        screenLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(screenLogoImageView)
+        screenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        screenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        screenLogoImageView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        screenLogoImageView.widthAnchor.constraint(equalToConstant: 75).isActive = true
+    }
+    
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
+    }
+    
+    private func showAuthViewController() {
+        let storyboard = UIStoryboard(
+            name: "Main",
+            bundle: .main)
+        guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else { return }
+        authViewController.delegate = self
+        authViewController.modalPresentationStyle = .fullScreen
+        present(authViewController, animated: true, completion: nil)
     }
     
     private func showAlert() {
@@ -42,7 +70,7 @@ final class SplashViewController: UIViewController {
     }
 }
 
-extension SplashViewController {
+/*extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
             guard
@@ -54,7 +82,7 @@ extension SplashViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-}
+} */
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {

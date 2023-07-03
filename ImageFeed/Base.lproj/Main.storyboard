@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mWf-nU-N6B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -203,7 +203,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ug4-m7-RUN" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bhf-hB-ooD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -214,38 +214,6 @@
             </objects>
             <point key="canvasLocation" x="-3770" y="-393"/>
         </scene>
-        <!--Unsplash-->
-        <scene sceneID="Ljr-4I-f2v">
-            <objects>
-                <viewController storyboardIdentifier="SplashViewController" id="mWf-nU-N6B" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="D4I-fO-0Vq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImageLaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="aGk-VY-IaJ">
-                                <rect key="frame" x="170.5" y="410.5" width="73" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="1jL-zA-9XJ"/>
-                                    <constraint firstAttribute="height" constant="75" id="mIW-lA-OHn"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="VJa-zt-V7J"/>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="aGk-VY-IaJ" firstAttribute="centerX" secondItem="D4I-fO-0Vq" secondAttribute="centerX" id="MSd-A5-d8k"/>
-                            <constraint firstItem="aGk-VY-IaJ" firstAttribute="centerY" secondItem="D4I-fO-0Vq" secondAttribute="centerY" id="S9f-rq-yAU"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Unsplash" id="jji-c7-q3M"/>
-                    <connections>
-                        <segue destination="Ug4-m7-RUN" kind="presentation" identifier="ShowAuthenticationScreen" modalPresentationStyle="fullScreen" id="McC-vx-70w"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RdR-IT-mVh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4962" y="-393"/>
-        </scene>
         <!--Auth View Controller-->
         <scene sceneID="hPI-id-T9M">
             <objects>
@@ -255,7 +223,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="authScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="2gM-qG-qBN">
-                                <rect key="frame" x="177" y="440" width="60" height="60"/>
+                                <rect key="frame" x="177" y="447" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="M0m-wa-xty"/>
                                     <constraint firstAttribute="height" constant="60" id="OMr-84-Ehf"/>
@@ -361,7 +329,6 @@
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="BackwardButton" width="24" height="24"/>
-        <image name="ImageLaunchScreen" width="37.5" height="39"/>
         <image name="authScreenLogo" width="60" height="60"/>
         <image name="navBackButton" width="24" height="24"/>
         <image name="noActiveLikeButton" width="44" height="44"/>
