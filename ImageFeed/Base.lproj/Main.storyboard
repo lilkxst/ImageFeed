@@ -12,7 +12,7 @@
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="ImageList" id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageListViewController" title="ImageList" id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -182,7 +182,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Tes-Iu-Tuu">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="u60-Ck-RYN" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="u60-Ck-RYN" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="iot-ZP-bHs">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -193,30 +193,10 @@
                             <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         </tabBarAppearance>
                     </tabBar>
-                    <connections>
-                        <segue destination="lDY-Ro-In1" kind="relationship" relationship="viewControllers" id="NJH-gq-1Uh"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="tCL-ha-jlc"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayv-2j-Oqk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-897.10144927536237" y="153.34821428571428"/>
-        </scene>
-        <!--Profile-->
-        <scene sceneID="wdL-A0-2SH">
-            <objects>
-                <viewController title="Profile" id="lDY-Ro-In1" customClass="ProfileViewController" customModule="ImageFeed" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tiR-jI-N6o">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ee1-C8-Ezc"/>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="tabProfileActive" id="SIE-i9-gvg"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="H6m-i3-Zf9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="264" y="566"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SDQ-xP-3cZ">
@@ -387,7 +367,6 @@
         <image name="noActiveLikeButton" width="44" height="44"/>
         <image name="shareButtonImage" width="51" height="50"/>
         <image name="tabEditorialActive" width="30" height="30"/>
-        <image name="tabProfileActive" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
