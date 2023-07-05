@@ -97,8 +97,8 @@ extension SplashViewController {
         profileService.fetchProfile { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
-                self.profileImageService.fetchProfileImageURL(username: self.profileService.profile!.username) { imageResult in
+            case .success(let profile):
+                self.profileImageService.fetchProfileImageURL(username: profile.username) { imageResult in
                     switch imageResult {
                     case .success:
                         print("Ссылка передана")
