@@ -6,18 +6,40 @@
 //
 
 import UIKit
+import Kingfisher
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
+    
+    private var nameLabel: UILabel!
+    private var linkLabel: UILabel!
+    private var descriptionLabel: UILabel!
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createProfileView()
+        updateProfileDetails(profile: profileService.profile!)
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
     }
     
     func createProfileView() {
-        let profileImage = UIImage(named: "ProfileImage")
+        view.backgroundColor = UIColor(named: "YP Black")
+        let profileImage = UIImage(named: "ProfileImagePlaceholder")
         let profileImageView = UIImageView(image: profileImage)
+        profileImageView.tag = 1
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        profileImageView.clipsToBounds = true
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImageView)
         profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
@@ -25,7 +47,7 @@ class ProfileViewController: UIViewController {
         profileImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         
-        let nameLabel = UILabel()
+        nameLabel = UILabel()
         nameLabel.text = "Екатерина Новикова"
         nameLabel.textColor = .white
         nameLabel.font = nameLabel.font.withSize(23)
@@ -34,7 +56,7 @@ class ProfileViewController: UIViewController {
         nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
         
-        let linkLabel = UILabel()
+        linkLabel = UILabel()
         linkLabel.text = "@ekaterina_nov"
         linkLabel.textColor = .gray
         linkLabel.font = linkLabel.font.withSize(13)
@@ -43,7 +65,7 @@ class ProfileViewController: UIViewController {
         linkLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor).isActive = true
         linkLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
         
-        let descriptionLabel = UILabel()
+        descriptionLabel = UILabel()
         descriptionLabel.text = "Hello, world!"
         descriptionLabel.textColor = .white
         descriptionLabel.font = descriptionLabel.font.withSize(13)
@@ -61,7 +83,32 @@ class ProfileViewController: UIViewController {
         logautButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         logautButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
-    } 
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        nameLabel.text = profile.name ?? ""
+        linkLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio ?? ""
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL),
+            let imageView = view.viewWithTag(1) as? UIImageView
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: imageView.frame.width / 2)
+        let placeholderImage = UIImage(named: "ProfileImagePlaceholder")
+        imageView.kf.setImage(with: url, placeholder: placeholderImage, options: [.processor(processor)], completionHandler: { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(_):
+                print("Фото загружено")
+            case .failure(let error):
+                print("Фото не загружено: \(error)")
+            }
+        })
+    }
     
     @objc
     

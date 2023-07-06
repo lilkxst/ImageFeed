@@ -21,6 +21,7 @@ final class WebViewViewController: UIViewController {
     @IBOutlet private var webView: WKWebView!
     @IBOutlet var progressView: UIProgressView!
     
+    private var estimatedProgressObservation: NSKeyValueObservation?
     weak var delegate: WebViewViewControllerDelegate?
     
     @IBAction func didTapBackButton(_ sender: Any) {
@@ -31,6 +32,13 @@ final class WebViewViewController: UIViewController {
         super.viewDidLoad()
         
         webView.navigationDelegate = self
+        estimatedProgressObservation = webView.observe(
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.updateProgress()
+             })
         
         var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
@@ -47,7 +55,7 @@ final class WebViewViewController: UIViewController {
         updateProgress()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+  /*  override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         webView.addObserver(self,
@@ -63,7 +71,7 @@ final class WebViewViewController: UIViewController {
         webView.removeObserver(self,
                                forKeyPath: #keyPath(WKWebView.estimatedProgress),
                                context: nil)
-    }
+    } */
     
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
