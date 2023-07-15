@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
     
@@ -15,6 +16,7 @@ final class ProfileViewController: UIViewController {
     private var descriptionLabel: UILabel!
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private let oAuth2TokenStorage = OAuth2TokenStorage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +114,28 @@ final class ProfileViewController: UIViewController {
     
     @objc
     
-    func didTapLogautButton() {
+    private func didTapLogautButton() {
+        showAlert()
+    }
+    
+    private func showAlert() {
+        UIBlockingProgressHUD.dismiss()
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Да", style: .default) { _ in
+            self.oAuth2TokenStorage.removeToken()
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+               WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+                  records.forEach { record in
+                     WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                  }
+               }
+            guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+            window.rootViewController = SplashViewController()
+        })
+        
+        present(alert, animated: true)
     }
 }
