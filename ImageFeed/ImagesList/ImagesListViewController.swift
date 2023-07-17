@@ -26,15 +26,7 @@ final class ImagesListViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
-        imageListServiceObserver = NotificationCenter.default
-            .addObserver(forName: ImageListService.didChangeNotification,
-                         object: nil,
-                         queue: .main
-            ) { [weak self] _ in
-                guard let self else { return }
-                updateTableViewAnimated()
-            }
+        changeNotification()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,7 +86,20 @@ final class ImagesListViewController: UIViewController {
         let buttonState = photo.isLiked ? "activeLikeButton" : "noActiveLikeButton"
         cell.likeButton.setImage(UIImage(named: buttonState), for: .normal)
     }
+    
+    private func changeNotification() {
+        imageListServiceObserver = NotificationCenter.default
+            .addObserver(forName: ImageListService.didChangeNotification,
+                         object: nil,
+                         queue: .main
+            ) { [weak self] _ in
+                guard let self else { return }
+                updateTableViewAnimated()
+            }
+    }
 }
+
+//MARK: - UITableViewDataSource
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,7 +148,7 @@ extension ImagesListViewController: UITableViewDelegate {
 }
 
 extension ImagesListViewController {
-    func updateTableViewAnimated() {
+    private func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = imageListService.photos.count
         photos = imageListService.photos
@@ -157,6 +162,8 @@ extension ImagesListViewController {
         }
     }
 }
+
+//MARK: - ImageListCellDelegate
 
 extension ImagesListViewController: ImageListCellDelegate {
     func imageLitsCellDidTapLike(_ cell: ImagesListCell) {
