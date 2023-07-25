@@ -46,6 +46,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgm-aZ-xFc" userLabel="Like Button">
                                                     <rect key="frame" x="354" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="likeButtonToTap"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="cQa-U9-b0k"/>
                                                         <constraint firstAttribute="height" constant="44" id="fuS-7g-dN9"/>
@@ -132,6 +133,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBB-uy-jYK" userLabel="Back Button">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="navBackButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="A1V-K5-fbV"/>
                                     <constraint firstAttribute="width" constant="48" id="UQD-KB-L3w"/>
@@ -235,6 +237,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXI-Gm-GT4">
                                 <rect key="frame" x="16" y="724" width="382" height="48"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="9vS-8L-Zmh"/>
                                 </constraints>
@@ -309,6 +312,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xaU-KM-bVF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="dc4-YP-i5u" secondAttribute="bottom" id="74G-Ss-Tnh"/>
                             <constraint firstItem="dc4-YP-i5u" firstAttribute="top" secondItem="3hq-vI-252" secondAttribute="top" id="Fcy-DH-0IP"/>

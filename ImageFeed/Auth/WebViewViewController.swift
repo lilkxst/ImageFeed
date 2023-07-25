@@ -45,6 +45,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
              })
         
         presenter?.viewDidLoad()
+        webView.accessibilityIdentifier = "UnsplashWebView"
     }
     
     override func observeValue(forKeyPath keyPath: String?,
