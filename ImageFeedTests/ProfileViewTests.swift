@@ -8,7 +8,7 @@
 @testable import ImageFeed
 import XCTest
 
-final class ProfileViewTests {
+final class ProfileViewTests: XCTestCase {
     func testProfileViewControllerCallsViewDidLoad() {
         // Given
         let viewController = ProfileViewController()

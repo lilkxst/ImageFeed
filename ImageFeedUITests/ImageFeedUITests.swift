@@ -38,7 +38,7 @@ final class ImageFeedUITests: XCTestCase {
         passwordTextField.typeText("<Ваш пароль>")
         webView.swipeUp()
         
-        webView.buttons.matching(identifier: "[Login]").element.tap()
+        webView.buttons.matching(identifier: "Login").element.tap()
         
         let tablesQuery = app.tables
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
