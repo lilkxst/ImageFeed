@@ -9,30 +9,28 @@ import UIKit
 import Kingfisher
 import WebKit
 
-final class ProfileViewController: UIViewController {
-    
-    private var nameLabel: UILabel!
-    private var linkLabel: UILabel!
-    private var descriptionLabel: UILabel!
+protocol ProfileViewControllerProtocol: UIViewController {
+    var presenter: ProfileViewPresenterProtocol { get set }
+    var nameLabel: UILabel! { get set }
+    var linkLabel: UILabel! { get set }
+    var descriptionLabel: UILabel! { get set }
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
+
+    var presenter: ProfileViewPresenterProtocol = ProfileViewPresenter()
+    var nameLabel: UILabel!
+    var linkLabel: UILabel!
+    var descriptionLabel: UILabel!
     private let profileService = ProfileService.shared
-    private var profileImageServiceObserver: NSObjectProtocol?
     private let oAuth2TokenStorage = OAuth2TokenStorage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configure(presenter)
         createProfileView()
-        updateProfileDetails(profile: profileService.profile!)
-        
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.didChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateAvatar()
-        }
-        updateAvatar()
+        presenter.viewDidLoad()
     }
     
     func createProfileView() {
@@ -77,6 +75,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.topAnchor.constraint(equalTo: linkLabel.bottomAnchor, constant: 8).isActive = true
         
         let logautButton = UIButton.systemButton(with: UIImage(imageLiteralResourceName: "ProfileLogaut"), target: self, action: #selector(self.didTapLogautButton))
+        logautButton.accessibilityIdentifier = "logoutButton"
         logautButton.tintColor = UIColor(red: 0.961, green: 0.42, blue: 0.424, alpha: 1)
         logautButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logautButton)
@@ -87,55 +86,27 @@ final class ProfileViewController: UIViewController {
         
     }
     
-    private func updateProfileDetails(profile: Profile) {
-        nameLabel.text = profile.name ?? ""
-        linkLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio ?? ""
-    }
-    
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL),
-            let imageView = view.viewWithTag(1) as? UIImageView
-        else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: imageView.frame.width / 2)
-        let placeholderImage = UIImage(named: "ProfileImagePlaceholder")
-        imageView.kf.setImage(with: url, placeholder: placeholderImage, options: [.processor(processor)], completionHandler: { [weak self] result in
-            guard self != nil else { return }
-            switch result {
-            case .success(_):
-                print("Фото загружено")
-            case .failure(let error):
-                print("Фото не загружено: \(error)")
-            }
-        })
-    }
-    
     @objc
     
     private func didTapLogautButton() {
         showAlert()
     }
     
-    private func showAlert() {
+   private func showAlert() {
         UIBlockingProgressHUD.dismiss()
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Да", style: .default) { _ in
-            self.oAuth2TokenStorage.removeToken()
-            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-               WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-                  records.forEach { record in
-                     WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-                  }
-               }
-            guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
-            window.rootViewController = SplashViewController()
-        })
+       alert.addAction(UIAlertAction(title: "Да", style: .default) { _ in
+           self.presenter.logOut()
+          })
         
         present(alert, animated: true)
     }
+    
+    func configure(_ presenter: ProfileViewPresenterProtocol) {
+            self.presenter = presenter
+            self.presenter.view = self
+        }
 }

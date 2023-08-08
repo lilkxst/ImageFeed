@@ -8,7 +8,15 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+protocol ImageListViewControllerProtocol: AnyObject {
+    var presenter: ImageListPresenterProtocol { get set }
+    func updateTableViewAnimated()
+    func setIsLiked(_ photo: Photo, _ cell: ImagesListCell)
+}
+
+final class ImagesListViewController: UIViewController & ImageListViewControllerProtocol {
+    
+    var presenter: ImageListPresenterProtocol = ImageListPresenter()
     
     @IBOutlet private var tableView: UITableView!
     
@@ -26,7 +34,8 @@ final class ImagesListViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        changeNotification()
+        presenter.viewDidLoad()
+        configure(presenter)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,20 +91,9 @@ final class ImagesListViewController: UIViewController {
         setIsLiked(photo, cell)
     }
     
-    private func setIsLiked(_ photo: Photo, _ cell: ImagesListCell) {
+    func setIsLiked(_ photo: Photo, _ cell: ImagesListCell) {
         let buttonState = photo.isLiked ? "activeLikeButton" : "noActiveLikeButton"
         cell.likeButton.setImage(UIImage(named: buttonState), for: .normal)
-    }
-    
-    private func changeNotification() {
-        imageListServiceObserver = NotificationCenter.default
-            .addObserver(forName: ImageListService.didChangeNotification,
-                         object: nil,
-                         queue: .main
-            ) { [weak self] _ in
-                guard let self else { return }
-                updateTableViewAnimated()
-            }
     }
 }
 
@@ -148,7 +146,7 @@ extension ImagesListViewController: UITableViewDelegate {
 }
 
 extension ImagesListViewController {
-    private func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = imageListService.photos.count
         photos = imageListService.photos
@@ -161,25 +159,21 @@ extension ImagesListViewController {
             } completion: { _ in }
         }
     }
+    
+    func configure(_ presenter: ImageListPresenterProtocol) {
+            self.presenter = presenter
+        self.presenter.view = self
+        }
 }
 
 //MARK: - ImageListCellDelegate
 
 extension ImagesListViewController: ImageListCellDelegate {
     func imageLitsCellDidTapLike(_ cell: ImagesListCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let photo = photos[indexPath.row]
+        guard let indexPath = tableView.indexPath(for: cell)?.row else { return }
         UIBlockingProgressHUD.show()
-        imageListService.changeLike(photoId: photo.id, isLike: photo.isLiked) { result in
-            switch result {
-            case .success:
-                self.photos[indexPath.row].isLiked = self.imageListService.photos[indexPath.row].isLiked
-                self.setIsLiked(self.photos[indexPath.row], cell)
-                UIBlockingProgressHUD.dismiss()
-            case .failure(let error):
-                UIBlockingProgressHUD.dismiss()
-                print("Ошибка: \(error)")
-            }
-        }
+        presenter.changeLike(indexPath, cell)
+        UIBlockingProgressHUD.dismiss()
     }
+    
 }
